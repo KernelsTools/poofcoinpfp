@@ -100,21 +100,19 @@
     </script>
     <script>
         $("#download").click(function(event) {
-    event.preventDefault(); // prevent the default action of the button
-    html2canvas(document.querySelector("#nft-container")).then(canvas => {
-        download(canvas, "POOF!");
-    });
-    });
-
-    function download(canvas, filename) {
-    const data = canvas.toDataURL("image/png;base64");
-    const downloadLink = document.createElement("a"); // create a new anchor element
-    downloadLink.download = filename;
-    downloadLink.href = data;
-    downloadLink.click(); // simulate a click on the anchor element to download the file
-    }
+        event.preventDefault(); 
+        html2canvas(document.querySelector("#nft-container")).then(canvas => {
+            download(canvas, "POOF!");
+        });
+        });
+        function download(canvas, filename) {
+            const data = canvas.toDataURL("image/png;base64");
+            const downloadLink = document.createElement("a"); 
+            downloadLink.download = filename;
+            downloadLink.href = data;
+            downloadLink.click(); 
+        }
     </script>
 </body>
-
 
 </html>

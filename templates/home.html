@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <style>
+    body {
+        background-color: white !important; 
+    }
+    .nft {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 300px;
+        height: 300px;
+        }
+    #BG {
+        z-index: 0;
+    }
+    #BASE {
+        z-index: 1;
+    } 
+    #EYES {
+        z-index: 2;
+    } 
+    #OUTFITS {
+        z-index: 3;
+    }
+    #Hands {
+        z-index: 4;
+    }
+    #nft-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
+        display: flex;
+    justify-content: center;
+    }
+    </style>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  </head>
+<body>
+        <div class = "nft" id = "nft-container">
+            <div class = "BG nft" id="BG">
+                <img id="topImageBG" src="{% static 'BG/comic.png' %}" width="300px"/>
+            </div>
+            <div class = "nft" id="BASE">
+                <img id="topImageBASE" src="{% static 'BASE/normal.png' %}" width="300px"/>
+            </div>
+            <div class = "EYES nft" id="EYES">
+                <img id="topImageEYES" src="{% static 'EYES/normal.png' %}" width="300px"/>
+            </div>
+            <div class = "OUTFITS nft" id="OUTFITS">
+                <img id="topImageOutfits" src="{% static 'OUTFITS/black-deamon-wizard.png' %}" width="300px"/>
+            </div>
+            <div class = "Hands nft"  id="Hands">
+                <img id="topImageHands" src="{% static 'Hands/air.png' %}" width="300px"/>
+            </div>
+        </div>
+
+<div><br><button type="button" class="btn btn-dark" id="download">
+    Download</button>
+    <br><br></div>
+
+        <div class="BG py-2" style="display: flex; flex-wrap: wrap; gap: 10px; ">
+            {% for image in BG_list %}
+                <img src="{% static image %}" style = "border: 1px solid black;  background-color: black; " width="100px" onclick="changeTopImage('topImageBG', this.src)">
+            {% endfor %}
+        </div>
+        <div class="EYES py-" style="display: flex; flex-wrap: wrap; gap: 10px;">
+            {% for image in EYES_list %}
+                <img src="{% static image %}" style = "border: 1px solid black; background-color: black;    "  width="100px" onclick="changeTopImage('topImageEYES', this.src)">
+            {% endfor %}
+        </div>
+        <div class="OUTFITS py-2" style="display: flex; flex-wrap: wrap; gap: 10px;">
+            {% for image in OUTFITS_list %}
+                <img src="{% static image %}" style = "border: 1px solid black; background-color: black;"  width="100px" onclick="changeTopImage('topImageOutfits', this.src)">
+            {% endfor %}
+        </div>
+        <div class="Hands py-" style="display: flex; flex-wrap: wrap; gap: 10px;">
+            {% for image in Hands_list %}
+                <img src="{% static image %}" style = "border: 1px solid black;  background-color: black;" width="100px" onclick="changeTopImage('topImageHands', this.src)">
+            {% endfor %}
+        </div>
+
+    <script>
+        function changeTopImage(imageId, src) {
+            document.getElementById(imageId).src = src;
+        }
+    </script>
+    <script>
+        $("#download").click(function(event) {
+    event.preventDefault(); // prevent the default action of the button
+    html2canvas(document.querySelector("#nft-container")).then(canvas => {
+        download(canvas, "POOF!");
+    });
+    });
+
+    function download(canvas, filename) {
+    const data = canvas.toDataURL("image/png;base64");
+    const downloadLink = document.createElement("a"); // create a new anchor element
+    downloadLink.download = filename;
+    downloadLink.href = data;
+    downloadLink.click(); // simulate a click on the anchor element to download the file
+    }
+    </script>
+</body>
+
+
+</html>
